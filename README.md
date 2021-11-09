@@ -8,3 +8,5 @@ None the less this was good practice to work in just C# without usually using Un
 
 I tried my best to make the code clean and readable as well as avoiding spaghetti code. All the code can be found in the HomeController.cs - which probably should be moved into
 it's own script
+
+Also many loops but it's only supposed to fire off once to get the data and that's it
