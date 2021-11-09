@@ -1,0 +1,41 @@
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\appsettings.Development.json
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\appsettings.json
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.exe
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.deps.json
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.runtimeconfig.json
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.runtimeconfig.dev.json
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.dll
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\ref\Pokémon Card Info Scraper MVC.dll
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.pdb
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.Views.dll
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\Pokémon Card Info Scraper MVC.Views.pdb
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\bin\Debug\net5.0\HtmlAgilityPack.dll
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.csproj.AssemblyReference.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.GeneratedMSBuildEditorConfig.editorconfig
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.AssemblyInfoInputs.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.AssemblyInfo.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.csproj.CoreCompileInputs.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.MvcApplicationPartsAssemblyInfo.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.RazorAssemblyInfo.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.RazorAssemblyInfo.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\staticwebassets\Pokémon Card Info Scraper MVC.StaticWebAssets.Manifest.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\staticwebassets\Pokémon Card Info Scraper MVC.StaticWebAssets.xml
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\scopedcss\bundle\Pokémon Card Info Scraper MVC.styles.css
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.TagHelpers.input.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.TagHelpers.output.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.RazorCoreGenerate.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.RazorTargetAssemblyInfo.cache
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.RazorTargetAssemblyInfo.cs
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.Views.pdb
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.csproj.CopyComplete
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.dll
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\ref\Pokémon Card Info Scraper MVC.dll
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.pdb
+H:\Documents\C# Projects\Pokémon Card Info Scraper MVC\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.genruntimeconfig.cache

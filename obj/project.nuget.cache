@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "8Tv6VEVsL14Kj2Xp3LVHvqEB/yYpEB/Ok6RybvIPaqvPognkTYAubUW9fC6lOa4u2c3VxH/HDBwJpoVTfsmXwA==",
+  "success": true,
+  "projectFilePath": "H:\\Documents\\C# Projects\\Pokemon-Card-Info-Scraper\\Pokémon Card Info Scraper MVC.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ASH\\.nuget\\packages\\htmlagilitypack\\1.11.37\\htmlagilitypack.1.11.37.nupkg.sha512"
+  ],
+  "logs": []
+}
