@@ -24,10 +24,10 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
         private string url = "https://pkmncards.com/sets/";
         private string sortWebsite = "?auto&display=full";
 
-        private string jsonFile = @"H:\jsonFile.json";
+        private string jsonFile = @"H:\Documents\C# Projects\PokemonJSON\";
+        private string fileFormat = ".json";
 
         private JsonSerializerOptions jsonS = new JsonSerializerOptions();
-        private Cards cards = new Cards();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -131,6 +131,7 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
                 var response = await CallURL(item);
                 doc.LoadHtml(response);
                 var card = doc.DocumentNode.SelectNodes("//div[@class='card-image-area']").ToList();
+                var cardStats = doc.DocumentNode.SelectNodes("//div[@class='tab text']").ToList();
                 var name = doc.DocumentNode.SelectNodes("//span[@class='name']").ToList();
                 var hp = doc.DocumentNode.SelectNodes("//span[@class='hp']").ToList();
                 var type = doc.DocumentNode.SelectNodes("//span[@class='type']").ToList();
@@ -154,14 +155,14 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
 
                 var flavorText = doc.DocumentNode.SelectNodes("//div[@class='flavor minor-text']").ToList();
 
-                GetPokemonData(card, name, hp, type, pokemon, stage, moves, weakness, resist, retreat, rule, illusName, series, set, cardNo, rarity, date, flavorText);
+                GetPokemonData(card, cardStats, name, hp, type, pokemon, stage, moves, weakness, resist, retreat, rule, illusName, series, set, cardNo, rarity, date, flavorText);
             }
         }
 
-        //We store each cards stats in the class CardStats - Due to the inconsistency of cards some cards are missing some atributes
+        //We store each cards stats in the class CardStats - Due to the inconsistency of cards some cards are missing some attributes
         //For example, not all cards have Flavour text, this has caused me to create temp int values as some lists are smaller then the actual card amount
         //In doing so I am able to match the correct data to the right card without causing an out of range error
-        private void GetPokemonData(List<HtmlNode> card, List<HtmlNode> name, List<HtmlNode> hp, 
+        private void GetPokemonData(List<HtmlNode> card, List<HtmlNode> cardStat, List<HtmlNode> name, List<HtmlNode> hp, 
                                     List<HtmlNode> type, List<HtmlNode> pokemons, List<HtmlNode> stage,
                                     List<HtmlNode> moves, List<HtmlNode> weakness, List<HtmlNode> resist, List<HtmlNode> retreat, List<HtmlNode> rule, 
                                     List<HtmlNode> illusName, List<HtmlNode> series, List<HtmlNode> set, List<HtmlNode> cardNo,
@@ -170,6 +171,7 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
             int wrr = 0;
             int rules = 0;
             int ft = 0;
+            Cards cards = new Cards();
 
             for (int i = 0; i < card.Count; i++)
             {
@@ -179,22 +181,24 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
                 cardStats.name = name[i].InnerText;
                 cardStats.type = type[i].InnerText;
 
-                if (moves[i] != null)
+                if (cardStats.type != "Energy")
                 {
                     cardStats.moves = CollatMoveData(moves[i]);
                 }
 
                 if (cardStats.type.Contains("Pokémon"))
                 {
-                    cardStats.hp = hp[i].InnerText;
-                    cardStats.pokemons = pokemons[i].InnerText;
-                    cardStats.stage = stage[i].InnerText;
+                    cardStats.hp = hp[wrr].InnerText;
+                    cardStats.pokemons = pokemons[wrr].InnerText;
+                    cardStats.stage = stage[wrr].InnerText;
                     cardStats.weakness = CollateStringData(weakness[wrr]);
                     cardStats.resist = CollateStringData(resist[wrr]);
                     cardStats.retreat = CollateStringData(retreat[wrr]);
                     wrr++;
                 }
-                else
+
+                
+                if(CheckForAttribute(cardStat[i], "rules minor-text"))
                 {
                     cardStats.rule = CollateStringData(rule[rules]);
                     rules++;
@@ -208,7 +212,8 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
                 cardStats.rarity = CollateStringData(rarity[i]);
                 cardStats.date = CollateStringData(date[i]);
 
-                if (flavorText[i].InnerText != null)
+
+                if(CheckForAttribute(cardStat[i], "flavor minor-text"))
                 {
                     cardStats.flavorText = HttpUtility.HtmlDecode(flavorText[ft].InnerText);
                     ft++;
@@ -216,7 +221,7 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
                 cards.cardStats.Add(cardStats);
             }
 
-            WriteToJSON(cards);
+            WriteToJSON(cards, cards.cardStats[0].set);
         }
 
         //Loop through all the Pokémons moves
@@ -235,7 +240,8 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
                         value += data.ChildNodes[i].ChildNodes[j].InnerText;
                     }
 
-                    string val = HttpUtility.HtmlDecode(value);
+                    string decode = HttpUtility.HtmlDecode(value);
+                    string val = decode.Replace("\n", " ");
 
                     collatedData.Add(val);
                 }
@@ -259,22 +265,30 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
             return decodeString;
         }
 
+        private bool CheckForAttribute(HtmlNode data, string attribute)
+        {
+            for (int i = 0; i < data.ChildNodes.Count; i++)
+            {
+                if (data.ChildNodes[i].Attributes.Count != 0)
+                {
+                    if (data.ChildNodes[i].Attributes[0].Value == attribute)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         //Output to a JSON file
-        private void WriteToJSON(Cards cardStats)
+        private void WriteToJSON(Cards cardStats, string setName)
         {
             string json = JsonSerializer.Serialize(cardStats.cardStats, jsonS);
 
-            if (!System.IO.File.Exists(jsonFile))
+            if (!System.IO.File.Exists(jsonFile + setName + fileFormat))
             {
-                System.IO.File.WriteAllText(jsonFile, json);
-            }
-            else
-            {
-                using (var tw = new StreamWriter(jsonFile, true))
-                {
-                    tw.WriteLine(json);
-                    tw.Close();
-                }
+                System.IO.File.WriteAllText(jsonFile + setName + fileFormat, json);
             }
         }
     }
