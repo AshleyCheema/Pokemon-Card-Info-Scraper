@@ -80,3 +80,7 @@ H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\obj\Debug\net5.0\Pokémon Car
 H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\obj\Debug\net5.0\ref\Pokémon Card Info Scraper MVC.dll
 H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.pdb
 H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\obj\Debug\net5.0\Pokémon Card Info Scraper MVC.genruntimeconfig.cache
+H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\bin\Debug\net5.0\PokemonJSON\Celebrations.json
+H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\bin\Debug\net5.0\PokemonJSON\Chilling Reign.json
+H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\bin\Debug\net5.0\PokemonJSON\Evolving Skies.json
+H:\Documents\C# Projects\Pokemon-Card-Info-Scraper\bin\Debug\net5.0\PokemonJSON\Fusion Strike.json

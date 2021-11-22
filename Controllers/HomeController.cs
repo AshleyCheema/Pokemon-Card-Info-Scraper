@@ -130,30 +130,30 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
             {
                 var response = await CallURL(item);
                 doc.LoadHtml(response);
-                var card = doc.DocumentNode.SelectNodes("//div[@class='card-image-area']").ToList();
-                var cardStats = doc.DocumentNode.SelectNodes("//div[@class='tab text']").ToList();
-                var name = doc.DocumentNode.SelectNodes("//span[@class='name']").ToList();
-                var hp = doc.DocumentNode.SelectNodes("//span[@class='hp']").ToList();
-                var type = doc.DocumentNode.SelectNodes("//span[@class='type']").ToList();
-                var pokemon = doc.DocumentNode.SelectNodes("//span[@class='pokemons']").ToList();
-                var stage = doc.DocumentNode.SelectNodes("//span[@class='stage']").ToList();
+                var card = doc.DocumentNode.SelectNodes("//div[@class='card-image-area']")?.ToList();
+                var cardStats = doc.DocumentNode.SelectNodes("//div[@class='tab text']")?.ToList();
+                var name = doc.DocumentNode.SelectNodes("//span[@class='name']")?.ToList();
+                var hp = doc.DocumentNode.SelectNodes("//span[@class='hp']")?.ToList();
+                var type = doc.DocumentNode.SelectNodes("//span[@class='type']")?.ToList();
+                var pokemon = doc.DocumentNode.SelectNodes("//span[@class='pokemons']")?.ToList();
+                var stage = doc.DocumentNode.SelectNodes("//span[@class='stage']")?.ToList();
 
-                var moves = doc.DocumentNode.SelectNodes("//div[@class='text']").ToList();
-                var weakness = doc.DocumentNode.SelectNodes("//span[@class='weak']").ToList();
-                var resist = doc.DocumentNode.SelectNodes("//span[@class='resist']").ToList();
-                var retreat = doc.DocumentNode.SelectNodes("//span[@class='retreat']").ToList();
+                var moves = doc.DocumentNode.SelectNodes("//div[@class='text']")?.ToList();
+                var weakness = doc.DocumentNode.SelectNodes("//span[@class='weak']")?.ToList();
+                var resist = doc.DocumentNode.SelectNodes("//span[@class='resist']")?.ToList();
+                var retreat = doc.DocumentNode.SelectNodes("//span[@class='retreat']")?.ToList();
 
-                var rule = doc.DocumentNode.SelectNodes("//div[@class='rules minor-text']").ToList();
+                var rule = doc.DocumentNode.SelectNodes("//div[@class='rules minor-text']")?.ToList();
 
-                var illusName = doc.DocumentNode.SelectNodes("//div[@class='illus minor-text']").ToList();
+                var illusName = doc.DocumentNode.SelectNodes("//div[@class='illus minor-text']")?.ToList();
 
-                var series = doc.DocumentNode.SelectNodes("//span[@title='Series']").ToList();
-                var set = doc.DocumentNode.SelectNodes("//span[@title='Set']").ToList();
-                var cardNo = doc.DocumentNode.SelectNodes("//span[@class='number-out-of']").ToList();
-                var rarity = doc.DocumentNode.SelectNodes("//span[@class='rarity']").ToList();
-                var date = doc.DocumentNode.SelectNodes("//span[@class='date']").ToList();
+                var series = doc.DocumentNode.SelectNodes("//span[@title='Series']")?.ToList();
+                var set = doc.DocumentNode.SelectNodes("//span[@title='Set']")?.ToList();
+                var cardNo = doc.DocumentNode.SelectNodes("//span[@class='number-out-of']")?.ToList();
+                var rarity = doc.DocumentNode.SelectNodes("//span[@class='rarity']")?.ToList();
+                var date = doc.DocumentNode.SelectNodes("//span[@class='date']")?.ToList();
 
-                var flavorText = doc.DocumentNode.SelectNodes("//div[@class='flavor minor-text']").ToList();
+                var flavorText = doc.DocumentNode.SelectNodes("//div[@class='flavor minor-text']")?.ToList();
 
                 GetPokemonData(card, cardStats, name, hp, type, pokemon, stage, moves, weakness, resist, retreat, rule, illusName, series, set, cardNo, rarity, date, flavorText);
             }
@@ -175,50 +175,98 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
 
             for (int i = 0; i < card.Count; i++)
             {
-                CardStats cardStats = new CardStats();
-
-                cardStats.image = card[i].ChildNodes[0].Attributes[0].Value;
-                cardStats.name = name[i].InnerText;
-                cardStats.type = type[i].InnerText;
-
-                if (cardStats.type != "Energy")
+                if (!CheckIfJsonExists(set[i].ChildNodes[0].InnerText))
                 {
-                    cardStats.moves = CollatMoveData(moves[i]);
-                }
+                    CardStats cardStats = new CardStats();
 
-                if (cardStats.type.Contains("Pokémon"))
+                    cardStats.image = card[i].ChildNodes[0].Attributes[0].Value;
+                    cardStats.name = name[i].InnerText;
+                    cardStats.type = type[i].InnerText;
+
+                    if (moves != null)
+                    {
+                        if (!CheckForAttribute(cardStat[i], "text"))
+                        {
+                            moves.Insert(i, null);
+                        }
+                        cardStats.moves = CollatMoveData(moves[i]);
+                    }
+
+
+                    if (cardStats.type.Contains("Pokémon"))
+                    {
+                        if (!CheckForAttributeDeeper(cardStat[i], "name-hp-color", "hp"))
+                        {
+                            hp.Insert(wrr, null);
+                            Debug.WriteLine(cardStats.name, set[i].ChildNodes[0].InnerText);
+                        }
+                        if (!CheckForAttributeDeeper(cardStat[i], "type-evolves-is", "pokemons"))
+                        {
+                            pokemons.Insert(wrr, null);
+                            Debug.WriteLine(cardStats.name, set[i].ChildNodes[0].InnerText);
+                        }
+                        if (!CheckForAttributeDeeper(cardStat[i], "type-evolves-is", "stage"))
+                        {
+                            stage.Insert(wrr, null);
+                            Debug.WriteLine(cardStats.name, set[i].ChildNodes[0].InnerText);
+                        }
+
+                        if (!CheckForAttributeDeeper(cardStat[i], "weak-resist-retreat", "weak"))
+                        {
+                            weakness.Insert(wrr, null);
+                            Debug.WriteLine(cardStats.name, set[i].ChildNodes[0].InnerText);
+                        }
+
+                        if (!CheckForAttributeDeeper(cardStat[i], "weak-resist-retreat", "resist"))
+                        {
+                            resist.Insert(wrr, null);
+                            Debug.WriteLine(cardStats.name, set[i].ChildNodes[0].InnerText);
+                        }
+
+                        if (!CheckForAttributeDeeper(cardStat[i], "weak-resist-retreat", "retreat"))
+                        {
+                            retreat.Insert(wrr, null);
+                            Debug.WriteLine(cardStats.name, set[i].ChildNodes[0].InnerText);
+                        }
+
+                        cardStats.hp = hp[wrr]?.InnerText;
+                        cardStats.pokemons = pokemons[wrr]?.InnerText;
+                        cardStats.stage = stage[wrr]?.InnerText;
+                        cardStats.weakness = CollateStringData(weakness[wrr]);
+                        cardStats.resist = CollateStringData(resist[wrr]);
+                        cardStats.retreat = CollateStringData(retreat[wrr]);
+
+                        wrr++;
+                    }
+
+
+                    if (CheckForAttribute(cardStat[i], "rules minor-text"))
+                    {
+                        cardStats.rule = CollateStringData(rule[rules]);
+                        rules++;
+                    }
+
+                    cardStats.illusName = illusName[i].InnerText;
+
+                    cardStats.series = CollateStringData(series[i]);
+                    cardStats.set = CollateStringData(set[i]);
+                    cardStats.cardNo = CollateStringData(cardNo[i]);
+                    cardStats.rarity = CollateStringData(rarity[i]);
+                    cardStats.date = CollateStringData(date[i]);
+
+
+                    if (CheckForAttribute(cardStat[i], "flavor minor-text"))
+                    {
+                        cardStats.flavorText = HttpUtility.HtmlDecode(flavorText[ft].InnerText);
+                        ft++;
+                    }
+
+                    cards.cardStats.Add(cardStats);
+                }
+                else
                 {
-                    cardStats.hp = hp[wrr].InnerText;
-                    cardStats.pokemons = pokemons[wrr].InnerText;
-                    cardStats.stage = stage[wrr].InnerText;
-                    cardStats.weakness = CollateStringData(weakness[wrr]);
-                    cardStats.resist = CollateStringData(resist[wrr]);
-                    cardStats.retreat = CollateStringData(retreat[wrr]);
-                    wrr++;
+                    return;
                 }
-
-                
-                if(CheckForAttribute(cardStat[i], "rules minor-text"))
-                {
-                    cardStats.rule = CollateStringData(rule[rules]);
-                    rules++;
-                }
-
-                cardStats.illusName = illusName[i].InnerText;
-
-                cardStats.series = CollateStringData(series[i]);
-                cardStats.set = CollateStringData(set[i]);
-                cardStats.cardNo = CollateStringData(cardNo[i]);
-                cardStats.rarity = CollateStringData(rarity[i]);
-                cardStats.date = CollateStringData(date[i]);
-
-
-                if(CheckForAttribute(cardStat[i], "flavor minor-text"))
-                {
-                    cardStats.flavorText = HttpUtility.HtmlDecode(flavorText[ft].InnerText);
-                    ft++;
-                }
-                cards.cardStats.Add(cardStats);
             }
 
             WriteToJSON(cards, cards.cardStats[0].set);
@@ -229,25 +277,29 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
         {
             List<string> collatedData = new List<string>();
 
-            for (int i = 0; i < data.ChildNodes.Count; i++)
+            if (data != null)
             {
-                string value = "";
-
-                if (data.ChildNodes[i].Name != "#text")
+                for (int i = 0; i < data.ChildNodes.Count; i++)
                 {
-                    for (int j = 0; j < data.ChildNodes[i].ChildNodes.Count; j++)
+                    string value = "";
+
+                    if (data.ChildNodes[i].Name != "#text")
                     {
-                        value += data.ChildNodes[i].ChildNodes[j].InnerText;
+                        for (int j = 0; j < data.ChildNodes[i].ChildNodes.Count; j++)
+                        {
+                            value += data.ChildNodes[i].ChildNodes[j].InnerText;
+                        }
+
+                        string decode = HttpUtility.HtmlDecode(value);
+                        string val = decode.Replace("\n", " ");
+
+                        collatedData.Add(val);
                     }
-
-                    string decode = HttpUtility.HtmlDecode(value);
-                    string val = decode.Replace("\n", " ");
-
-                    collatedData.Add(val);
                 }
-            }
 
-            return collatedData.ToArray();
+                return collatedData.ToArray();
+            }
+            return null;
         }
 
         //Loop through any data that has multiple strings on different lines to bundle them together
@@ -255,11 +307,13 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
         {
             string endString = "";
 
-            for (int i = 0; i < data.ChildNodes.Count; i++)
+            if (data != null)
             {
-                endString += data.ChildNodes[i].InnerText;
+                for (int i = 0; i < data.ChildNodes.Count; i++)
+                {
+                    endString += data.ChildNodes[i].InnerText;
+                }
             }
-
             string decodeString = HttpUtility.HtmlDecode(endString);
 
             return decodeString;
@@ -281,14 +335,52 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
             return false;
         }
 
+        //Loop through all the cards nodes. Ignore attributes that are empty, find the top level of the node. Loop through all it's child nodes - It's gross, I know
+        private bool CheckForAttributeDeeper(HtmlNode data, string topLevel, string attribute)
+        {
+            for (int i = 0; i < data.ChildNodes.Count; i++)
+            {
+                if (data.ChildNodes[i].Attributes.Count != 0)
+                {
+                    if (data.ChildNodes[i].Attributes[0].Value == topLevel)
+                    {
+                        for (int j = 0; j < data.ChildNodes[i].ChildNodes.Count; j++)
+                        {
+                            if (data.ChildNodes[i].ChildNodes[j].Attributes.Count != 0)
+                            {
+                                if (data.ChildNodes[i].ChildNodes[j].Attributes[0].Value == attribute)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
         //Output to a JSON file
         private void WriteToJSON(Cards cardStats, string setName)
         {
-            string json = JsonSerializer.Serialize(cardStats.cardStats, jsonS);
-
-            if (!System.IO.File.Exists(jsonFile + setName + fileFormat))
+            if(!CheckIfJsonExists(setName))
             {
+                string json = JsonSerializer.Serialize(cardStats.cardStats, jsonS);
+
                 System.IO.File.WriteAllText(jsonFile + setName + fileFormat, json);
+            }
+        }
+
+        private bool CheckIfJsonExists(string setName)
+        {
+            if(!System.IO.File.Exists(jsonFile + setName + fileFormat))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }
