@@ -27,6 +27,8 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
         private string jsonFile = @"H:\Documents\C# Projects\PokemonJSON\";
         private string fileFormat = ".json";
 
+        private string awsImageUrl = "https://pokemon-card-sorter.s3.eu-west-2.amazonaws.com/";
+
         private JsonSerializerOptions jsonS = new JsonSerializerOptions();
 
         public HomeController(ILogger<HomeController> logger)
@@ -178,8 +180,7 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
                 if (!CheckIfJsonExists(set[i].ChildNodes[0].InnerText))
                 {
                     CardStats cardStats = new CardStats();
-
-                    cardStats.image = card[i].ChildNodes[0].Attributes[0].Value;
+                    cardStats.image = CreateNewURL(card[i].ChildNodes[0].Attributes[0].Value, set[i].ChildNodes[0].InnerText);
                     cardStats.name = name[i].InnerText;
                     cardStats.type = type[i].InnerText;
 
@@ -359,6 +360,18 @@ namespace Pokémon_Card_Info_Scraper_MVC.Controllers
             }
 
             return false;
+        }
+
+        private string CreateNewURL(string cardURL, string pokemonSet)
+        {
+            Uri url = new Uri(cardURL);
+            string segment = url.Segments[4];
+
+            string setName = pokemonSet.Replace(" ", "-");
+            string set = setName.ToLower();
+            string finalString = awsImageUrl + set + "/" + segment;
+
+            return finalString;
         }
 
         //Output to a JSON file
